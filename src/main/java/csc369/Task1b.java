@@ -10,7 +10,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class AccessLog {
+public class Task1b {
 
     public static final Class OUTPUT_KEY_CLASS = Text.class;
     public static final Class OUTPUT_VALUE_CLASS = IntWritable.class;
@@ -21,7 +21,7 @@ public class AccessLog {
         @Override
 	protected void map(LongWritable key, Text value,
 			   Context context) throws IOException, InterruptedException {
-	    String[] sa = value.toString().split(" ");
+	    String[] sa = value.toString().split("\t");
 	    Text hostname = new Text();
 	    hostname.set(sa[0]);
 	    context.write(hostname, one);

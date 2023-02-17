@@ -48,15 +48,37 @@ public class HadoopApp {
 	    job.setOutputKeyClass(WordCount.OUTPUT_KEY_CLASS);
 	    job.setOutputValueClass(WordCount.OUTPUT_VALUE_CLASS);
 	    FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
-	    FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
-	} else if ("AccessLog".equalsIgnoreCase(otherArgs[0])) {
-	    job.setReducerClass(AccessLog.ReducerImpl.class);
-	    job.setMapperClass(AccessLog.MapperImpl.class);
-	    job.setOutputKeyClass(AccessLog.OUTPUT_KEY_CLASS);
-	    job.setOutputValueClass(AccessLog.OUTPUT_VALUE_CLASS);
-	    FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
-	    FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
-	} else {
+	    FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));} 
+
+	else if ("Task1a".equalsIgnoreCase(otherArgs[0])) {
+
+		MultipleInputs.addInputPath(job, new Path(otherArgs[1]),
+					TextInputFormat.class, Task1a.HostnameMapper.class );
+		MultipleInputs.addInputPath(job, new Path(otherArgs[2]),
+					TextInputFormat.class, Task1a.CountryMapper.class ); 
+		job.setReducerClass(Task1a.JoinReducer.class);
+		job.setOutputKeyClass(Task1a.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(Task1a.OUTPUT_VALUE_CLASS);
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));}
+
+	else if ("Task1b".equalsIgnoreCase(otherArgs[0])) {
+		job.setReducerClass(Task1b.ReducerImpl.class);
+		job.setMapperClass(Task1b.MapperImpl.class);
+		job.setOutputKeyClass(Task1b.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(Task1b.OUTPUT_VALUE_CLASS);
+		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));} 
+
+	else if ("Task1c".equalsIgnoreCase(otherArgs[0])) {
+		job.setReducerClass(Task1c.ReducerImpl.class);
+		job.setMapperClass(Task1c.MapperImpl.class);
+		job.setOutputKeyClass(Task1c.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(Task1c.OUTPUT_VALUE_CLASS);
+		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));} 
+	
+
+	else {
 	    System.out.println("Unrecognized job: " + otherArgs[0]);
 	    System.exit(-1);
 	}

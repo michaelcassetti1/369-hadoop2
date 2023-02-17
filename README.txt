@@ -25,3 +25,8 @@ to get the descending order for the desired output.
 
 
 TASK 3:
+For this, I started with my reduce side join that has countries linked to URLs. From there, I created
+a new class called country count that would allow for group sorting. I ran into some issues with what 
+the comparator looked at first, so I changed it to country and this sorted the resulting countries 
+correctly. I them put it through one more map/reduce to sort it based off of the url and obtained
+the desired output.

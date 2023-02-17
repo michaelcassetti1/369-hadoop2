@@ -78,6 +78,37 @@ public class HadoopApp {
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));} 
 	
 
+	else if ("Task2a".equalsIgnoreCase(otherArgs[0])) {
+
+		MultipleInputs.addInputPath(job, new Path(otherArgs[1]),
+					TextInputFormat.class, Task2a.URLMapper.class );
+		MultipleInputs.addInputPath(job, new Path(otherArgs[2]),
+					TextInputFormat.class, Task2a.CountryMapper.class ); 
+		job.setReducerClass(Task2a.JoinReducer.class);
+		job.setOutputKeyClass(Task2a.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(Task2a.OUTPUT_VALUE_CLASS);
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));}
+
+	else if ("Task2b".equalsIgnoreCase(otherArgs[0])) {
+		job.setReducerClass(Task2b.ReducerImpl.class);
+		job.setMapperClass(Task2b.MapperImpl.class);
+		job.setOutputKeyClass(Task2b.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(Task2b.OUTPUT_VALUE_CLASS);
+		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));}
+
+	else if ("Task2c".equalsIgnoreCase(otherArgs[0])) {
+		job.setReducerClass(Task2c.ReducerImpl.class);
+		job.setMapperClass(Task2c.MapperImpl.class);
+			
+			job.setSortComparatorClass(Task2c.SortComparator.class);
+			
+		job.setOutputKeyClass(Task2c.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(Task2c.OUTPUT_VALUE_CLASS);
+		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
+	}
+
 	else {
 	    System.out.println("Unrecognized job: " + otherArgs[0]);
 	    System.exit(-1);
